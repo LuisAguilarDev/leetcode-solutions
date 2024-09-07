@@ -58,11 +58,14 @@ export class FixedQueue<T> {
   }
 
   isEmpty(): boolean {
-    return this.head === this.tail && !this.items[this.tail];
+    return this.items[this.head] === null;
   }
 
   isFull(): boolean {
-    return this.items[this.tail] !== null;
+    if (this.isEmpty()) {
+      return false;
+    }
+    return this.tail % this.items.length === this.head;
   }
 }
 
@@ -108,6 +111,9 @@ export class FixedQueue2<T> {
   }
 
   isFull(): boolean {
-    return this.items[this.tail] !== null;
+    if (this.isEmpty()) {
+      return false;
+    }
+    return this.tail % this.items.length === this.head;
   }
 }

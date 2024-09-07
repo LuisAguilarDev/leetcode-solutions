@@ -148,7 +148,7 @@ describe('queue class', () => {
     newQueue.enqueue(1);
     expect(newQueue.isFull()).toBe(true);
   });
-  test('FixedQueue2 isFull should return false on full FixedQueue', () => {
+  test('FixedQueue2 isFull should return false on empty FixedQueue', () => {
     const newQueue = new FixedQueue2<number>(5);
     expect(newQueue.isFull()).toEqual(false);
     newQueue.enqueue(1);
