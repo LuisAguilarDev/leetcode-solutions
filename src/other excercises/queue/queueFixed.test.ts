@@ -1,5 +1,5 @@
 import { describe, expect, test } from '@jest/globals';
-import { FixedQueue } from './queue-fixed';
+import { FixedQueue } from './queueFixed';
 
 describe('queue class', () => {
   test('queue should be empty on creation', () => {
