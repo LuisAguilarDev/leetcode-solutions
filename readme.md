@@ -24,7 +24,7 @@ Sigue los siguientes pasos para clonar este repositorio y ejecutar el proyecto l
 1. **Clona el repositorio**:
 
    ```bash
-   git clone https://github.com/tu-usuario/tu-repositorio.git
+   git clone https://github.com/LuisAguilarDev/leetcode-solutions.git
    ```
 
 2. **Navega al directorio del proyecto:**:
