@@ -1,10 +1,10 @@
-class StackFullError extends Error {
+export class StackFullError extends Error {
   constructor(message: string) {
     super(message);
     this.name = 'StackFullError';
   }
 }
-class StackEmptyError extends Error {
+export class StackEmptyError extends Error {
   constructor(message: string) {
     super(message);
     this.name = 'StackEmptyError';
@@ -48,7 +48,7 @@ export class Stack<T> {
 }
 
 interface stackResponse<T> {
-  successs: boolean;
+  success: boolean;
   element?: T | null;
 }
 export class Stack2<T> {
@@ -62,35 +62,35 @@ export class Stack2<T> {
   push(element: T): stackResponse<T> {
     if (this.isFull()) {
       return {
-        successs: false,
+        success: false,
       };
     }
     this.items[this.current] = element;
     this.current++;
     return {
-      successs: true,
+      success: true,
     };
   }
   pop(): stackResponse<T> {
     if (this.isEmpty()) {
       return {
-        successs: false,
+        success: false,
       };
     }
     this.current--;
     return {
-      successs: true,
+      success: true,
       element: this.items[this.current],
     };
   }
   peek(): stackResponse<T> {
     if (this.isEmpty()) {
       return {
-        successs: false,
+        success: false,
       };
     }
     return {
-      successs: true,
+      success: true,
       element: this.items[this.current - 1],
     };
   }
