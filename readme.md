@@ -26,3 +26,18 @@ Sigue los siguientes pasos para clonar este repositorio y ejecutar el proyecto l
    ```bash
    git clone https://github.com/tu-usuario/tu-repositorio.git
    ```
+
+## 🧪 Estructura del Proyecto
+
+El proyecto está organizado de la siguiente manera:
+
+```bash
+📦 tu-repositorio
+┣ 📂 src # Carpeta con los archivos de código TypeScript
+┃ ┣ 📂 exercises # Carpeta con los ejercicios
+┃ ┃ ┗ 📜 twoSum.ts # Ejercicio twoSum
+┣ 📂 tests # Carpeta con los archivos de pruebas unitarias
+┃ ┃ ┗ 📜 twoSum.test.ts # Test para el ejercicio twoSum
+┣ 📜 package.json # Archivo de configuración del proyecto
+┗ 📜 README.md # Este archivo con información del repositorio
+```
