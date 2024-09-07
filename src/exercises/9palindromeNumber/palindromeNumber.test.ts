@@ -1,7 +1,7 @@
 import { describe, expect, test } from '@jest/globals';
 import { isPalindrome } from './palindromeNumber';
 
-describe('Add Two Numbers', () => {
+describe('Palindrome Number', () => {
   test('', () => {
     expect(isPalindrome(342)).toEqual(false);
   });

@@ -1,7 +1,7 @@
 import { describe, expect, test } from '@jest/globals';
 import { longestCommonPrefix } from './longestCommonPrefix';
 
-describe('Add Two Numbers', () => {
+describe('Longest common prefix', () => {
   test('', () => {
     expect(longestCommonPrefix(['flower', 'flow', 'flight'])).toEqual('fl');
   });
