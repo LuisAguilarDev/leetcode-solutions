@@ -1,3 +1,4 @@
+// approach O(n^2)
 // export const twoSum = function (
 //   nums: Array<number>,
 //   target: number
@@ -13,6 +14,7 @@
 //   return [];
 // };
 
+//better aproach O(n)
 export const twoSum = function (
   nums: Array<number>,
   target: number
