@@ -30,7 +30,7 @@ Sigue los siguientes pasos para clonar este repositorio y ejecutar el proyecto l
 2. **Navega al directorio del proyecto:**:
 
    ```bash
-   cd tu-repositorio
+   cd leetcode-solutions
    ```
 
 3. **Instala las dependencias:**:
