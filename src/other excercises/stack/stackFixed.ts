@@ -4,6 +4,11 @@ export class StackFullError extends Error {
     this.name = 'StackFullError';
   }
 }
+interface stackResponse<T> {
+  success: boolean;
+  element?: T | null;
+}
+
 export class StackEmptyError extends Error {
   constructor(message: string) {
     super(message);
@@ -47,10 +52,6 @@ export class Stack<T> {
   }
 }
 
-interface stackResponse<T> {
-  success: boolean;
-  element?: T | null;
-}
 export class Stack2<T> {
   private items: (T | null)[];
   private current: number;
