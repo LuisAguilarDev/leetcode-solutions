@@ -85,7 +85,7 @@ export class FixedQueue2<T> {
       return { success: false };
     }
     this.items[this.tail] = item;
-    this.tail = (this.tail + 1) % this.items.length;
+    this.tail = (this.tail + 1) % (this.items.length + 1);
     return { success: true };
   }
 
@@ -94,8 +94,7 @@ export class FixedQueue2<T> {
       return { success: false };
     }
     const item = this.items[this.head];
-    this.items[this.head] = null;
-    this.head = (this.head + 1) % this.items.length;
+    this.head = (this.head + 1) % (this.items.length + 1);
     return { success: true, element: item };
   }
 
@@ -107,13 +106,10 @@ export class FixedQueue2<T> {
   }
 
   isEmpty(): boolean {
-    return this.items[this.head] === null;
+    return this.head === this.tail;
   }
 
   isFull(): boolean {
-    if (this.isEmpty()) {
-      return false;
-    }
-    return this.tail % this.items.length === this.head;
+    return (this.tail + 1) % (this.items.length + 1) === this.head;
   }
 }
