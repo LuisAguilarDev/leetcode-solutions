@@ -35,13 +35,13 @@ export function insertList(
     index++;
   }
 
-  if (direction === 'izq') {
-    if (l2 && l1 && l1.next === null) {
+  if (direction === 'izq' && l1) {
+    if (l1.next === null) {
       l2.prev = l1;
       l1.next = l2;
       return head;
     }
-    l1 = l1?.prev || null;
+    l1 = l1.prev || null;
   }
   if (direction === 'der' && position === 0) {
     head = l2;
