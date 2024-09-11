@@ -35,13 +35,17 @@ export function insertList(
     index++;
   }
 
-  if (direction === 'izq' && l1) {
-    if (l1.next === null) {
-      l2.prev = l1;
-      l1.next = l2;
-      return head;
-    }
+  if (direction === 'izq' && l1?.prev) {
     l1 = l1.prev || null;
+  }
+  if (direction === 'izq' && !l1?.prev) {
+    head = l2;
+    while (l2?.next) {
+      l2 = l2.next;
+    }
+    l2.next = l1;
+    l1!.prev = l2;
+    return head;
   }
   if (direction === 'der' && position === 0) {
     head = l2;
@@ -50,8 +54,8 @@ export function insertList(
     }
     if (l1) {
       l1.prev = l2;
+      l2.next = l1;
     }
-    l2.next = l1;
     return head;
   }
   const tail = l1?.next || null;
@@ -64,8 +68,8 @@ export function insertList(
   }
   if (tail) {
     tail.prev = l2;
+    l2.next = tail;
   }
-  l2.next = tail;
   return head;
 }
 
@@ -97,9 +101,7 @@ export const arrayToListNode = (arrayData: Array<number>): ListNode => {
 };
 
 export const listNodeToArray = (list: ListNode | null): Array<number> => {
-  let current: ListNode | null = null;
-  let array: Array<number> = [];
-
+  const array: Array<number> = [];
   while (list) {
     array.push(list.val);
     list = list.next;
