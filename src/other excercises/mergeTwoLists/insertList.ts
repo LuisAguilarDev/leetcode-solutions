@@ -35,28 +35,18 @@ export function insertList(
     index++;
   }
 
-  if (direction === 'izq' && l1?.prev) {
-    l1 = l1.prev || null;
-  }
-  if (direction === 'izq' && !l1?.prev) {
-    head = l2;
-    while (l2?.next) {
-      l2 = l2.next;
-    }
-    l2.next = l1;
-    l1!.prev = l2;
-    return head;
-  }
-  if (direction === 'der' && position === 0) {
-    head = l2;
-    while (l2?.next) {
-      l2 = l2?.next ?? null;
-    }
-    if (l1) {
-      l1.prev = l2;
+  if (direction === 'izq') {
+    if (position !== 0) {
+      l1 = l1?.prev || null;
+    } else {
+      head = l2;
+      while (l2?.next) {
+        l2 = l2.next;
+      }
       l2.next = l1;
+      l1!.prev = l2;
+      return head;
     }
-    return head;
   }
   const tail = l1?.next || null;
   if (l1) {
