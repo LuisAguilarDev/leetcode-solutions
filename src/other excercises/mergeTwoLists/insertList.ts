@@ -4,10 +4,20 @@
 
 // Vamos a cambiar la definición de un ListNode también. Ahora tu ListNode contiene dos punteros - el vecino de la derecha y el vecino de la izquierda
 
-// ListNode:
-// 	val : int
-// 	prev : Listnode
-// 	next : ListNode
+export class ListNode {
+  val: number;
+  next: ListNode | null;
+  prev: ListNode | null;
+  constructor(
+    val: number,
+    next: ListNode | null = null,
+    prev: ListNode | null = null
+  ) {
+    this.val = val;
+    this.prev = prev;
+    this.next = next;
+  }
+}
 
 // L1 = [5,4,3,2,1]
 
@@ -16,15 +26,15 @@
 //insertList(L1,L2,3,"izq")--> = [5,4,3-next=null] , [ 2,1] = [5,4,3,2,4,6,2,1]
 //insertList(L1,L2,3,"der")--> = [5,4,3,2] , [1] = [5,4,3,2,2,4,6,1]
 export enum dir {
-  izq = 'izq',
-  der = 'der',
+  izq,
+  der,
 }
 
 export function insertList(
   l1: ListNode | null,
   l2: ListNode | null,
   position: number,
-  direction: keyof typeof dir
+  direction: dir
 ): ListNode | null {
   if (!l1) return l2;
   if (!l2) return l1;
@@ -35,7 +45,7 @@ export function insertList(
     index++;
   }
 
-  if (direction === 'izq') {
+  if (direction === dir.izq) {
     if (position !== 0) {
       l1 = l1?.prev || null;
     } else {
@@ -61,17 +71,6 @@ export function insertList(
     l2.next = tail;
   }
   return head;
-}
-
-export class ListNode {
-  val: number;
-  next: ListNode | null;
-  prev: ListNode | null;
-  constructor(val?: number, next?: ListNode | null, prev?: ListNode | null) {
-    this.val = val ?? 0;
-    this.prev = prev === undefined ? null : prev;
-    this.next = next === undefined ? null : next;
-  }
 }
 
 export const arrayToListNode = (arrayData: Array<number>): ListNode => {
