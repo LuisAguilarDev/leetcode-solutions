@@ -102,3 +102,23 @@ export class Stack2<T> {
     return this.current === this.items.length;
   }
 }
+
+export class dynamicStack<T> {
+  private items: (T | null)[];
+
+  constructor() {
+    this.items = [];
+  }
+  push(element: T): void {
+    this.items.push(element);
+  }
+  pop(): T | null {
+    return this.items.pop() || null;
+  }
+  peek(): T | null {
+    return this.items.at(-1) || null;
+  }
+  isEmpty(): boolean {
+    return this.items.length === 0;
+  }
+}

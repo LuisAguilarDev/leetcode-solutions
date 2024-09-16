@@ -36,6 +36,7 @@ export function insertList(
   position: number,
   direction: dir
 ): ListNode | null {
+  //Documentar los efectos secundarios - Modifica los nodos iniciales
   if (!l1) return l2;
   if (!l2) return l1;
   let index = 0;
