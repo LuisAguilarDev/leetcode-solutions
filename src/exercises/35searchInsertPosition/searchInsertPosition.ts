@@ -1,10 +1,5 @@
 export function recursiveSearchInsert(nums: number[], target: number): number {
-  function search(
-    nums: number[],
-    target: number,
-    startPointer: number,
-    endPointer: number
-  ): number {
+  function search(startPointer: number, endPointer: number): number {
     if (startPointer === endPointer) {
       return target > nums[startPointer] ? ++startPointer : startPointer;
     }
@@ -13,12 +8,12 @@ export function recursiveSearchInsert(nums: number[], target: number): number {
       return middlePointer;
     }
     if (target > nums[middlePointer]) {
-      return search(nums, target, middlePointer + 1, endPointer);
+      return search(middlePointer + 1, endPointer);
     } else {
-      return search(nums, target, startPointer, middlePointer - 1);
+      return search(startPointer, middlePointer - 1);
     }
   }
-  return search(nums, target, 0, nums.length - 1);
+  return search(0, nums.length - 1);
 }
 
 export function iterableSearchInsert(nums: number[], target: number): number {
