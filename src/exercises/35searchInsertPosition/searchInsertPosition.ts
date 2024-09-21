@@ -1,9 +1,9 @@
 export function recursiveSearchInsert(nums: number[], target: number): number {
   function search(startPointer: number, endPointer: number): number {
-    if (startPointer === endPointer) {
-      return target > nums[startPointer] ? ++startPointer : startPointer;
+    if (startPointer >= endPointer) {
+      return target > nums[startPointer] ? startPointer + 1 : startPointer;
     }
-    const middlePointer = Math.round((endPointer - startPointer) / 2);
+    const middlePointer = Math.round((startPointer + endPointer) / 2);
     if (target === nums[middlePointer]) {
       return middlePointer;
     }
