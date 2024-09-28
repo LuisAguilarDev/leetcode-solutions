@@ -19,42 +19,28 @@ export function inorderTraversal(root: TreeNode | null): number[] {
 
 export function inorderTraversalRecursive(node: TreeNode | null): number[] {
   if (!node) return [];
-  function recursiveFunc(
-    node: TreeNode | null,
-    direction: 'left' | 'rigth'
-  ): any {
+  function recursiveFunc(node: TreeNode | null): any {
     if (!node) return [];
     return [
-      ...recursiveFunc(node?.left || null, 'left'),
+      ...recursiveFunc(node?.left),
       node.val,
-      ...recursiveFunc(node?.right || null, 'rigth'),
+      ...recursiveFunc(node?.right),
     ];
   }
-  return [
-    ...recursiveFunc(node.left, 'left'),
-    node.val,
-    ...recursiveFunc(node.right, 'rigth'),
-  ];
+  return recursiveFunc(node);
 }
 
 export function preorderTraversalRecursive(node: TreeNode | null): number[] {
   if (!node) return [];
-  function recursiveFunc(
-    node: TreeNode | null,
-    direction: 'left' | 'rigth'
-  ): any {
+  function recursiveFunc(node: TreeNode | null): any {
     if (!node) return [];
     return [
       node.val,
-      ...recursiveFunc(node?.left || null, 'left'),
-      ...recursiveFunc(node?.right || null, 'rigth'),
+      ...recursiveFunc(node?.left),
+      ...recursiveFunc(node?.right),
     ];
   }
-  return [
-    node.val,
-    ...recursiveFunc(node.left, 'left'),
-    ...recursiveFunc(node.right, 'rigth'),
-  ];
+  return recursiveFunc(node);
 }
 
 export function postorderTraversalIterative(node: TreeNode | null): number[] {
