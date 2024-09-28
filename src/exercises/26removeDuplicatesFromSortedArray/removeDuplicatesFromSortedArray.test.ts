@@ -5,7 +5,6 @@ describe('26. Remove Duplicates from Sorted Array', () => {
     const expectedNums = [1, 2];
 
     const k = removeDuplicates(nums);
-    console.log(k, 'respones', nums, expectedNums.length);
     expect(k).toBe(expectedNums.length);
     for (let i = 0; i < k; i++) {
       expect(nums[i]).toBe(expectedNums[i]);
@@ -16,7 +15,6 @@ describe('26. Remove Duplicates from Sorted Array', () => {
     const expectedNums = [0, 1, 2, 3, 4];
 
     const k = removeDuplicates(nums);
-    console.log(k, 'respones', nums, expectedNums.length);
     expect(k).toBe(expectedNums.length);
     for (let i = 0; i < k; i++) {
       expect(nums[i]).toBe(expectedNums[i]);

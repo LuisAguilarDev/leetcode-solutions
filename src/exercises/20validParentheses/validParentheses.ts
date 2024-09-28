@@ -1,4 +1,4 @@
-import { dynamicStack } from '../../other excercises/stack/stackFixed';
+import { dynamicStack } from '../../dataTypes/stack/stackFixed';
 
 export function isValid(s: string): boolean {
   const symbolsDictionary: { [key: string]: string } = {
