@@ -113,3 +113,33 @@ export class FixedQueue2<T> {
     return (this.tail + 1) % (this.items.length + 1) === this.head;
   }
 }
+
+export class DinamycQueue<T> {
+  private items: (T | null)[];
+
+  constructor() {
+    this.items = [];
+  }
+
+  enqueue(item: T): void {
+    this.items.push(item);
+  }
+
+  dequeue(): T | null {
+    if (this.isEmpty()) {
+      return null;
+    }
+    return this.items.shift() ?? null;
+  }
+
+  peek(): T | null {
+    if (this.isEmpty()) {
+      return null;
+    }
+    return this.items.at(-1) ?? null;
+  }
+
+  isEmpty(): boolean {
+    return this.items.length === 0;
+  }
+}

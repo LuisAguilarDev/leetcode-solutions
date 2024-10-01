@@ -4,7 +4,7 @@ import {
   FixedQueue2,
   QueueEmptyError,
   QueueFullError,
-} from './queueFixed';
+} from './queue';
 
 describe('queue class', () => {
   //Queue value | Error
