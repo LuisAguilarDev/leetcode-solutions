@@ -103,7 +103,7 @@ export class Stack2<T> {
   }
 }
 
-export class dynamicStack<T> {
+export class DynamicStack<T> {
   private items: (T | null)[];
 
   constructor() {
