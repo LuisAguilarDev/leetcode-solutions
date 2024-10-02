@@ -1,10 +1,11 @@
 import { TreeNode } from '../../dataTypes/binaryTree/binaryTree';
-import { dynamicStack } from '../../dataTypes/stack/stackFixed';
+import { DynamicStack } from '../../dataTypes/stack/stackFixed';
+import { DinamycQueue } from '../../dataTypes/queue/queue';
 
-export function inorderTraversal(root: TreeNode | null): number[] {
-  const stack = new dynamicStack<TreeNode>();
+export function inorderTraversalIterative(root: TreeNode | null): number[] {
+  const response: number[] = [];
+  const stack = new DynamicStack<TreeNode>();
   let current = root;
-  let response = [];
   while (current || !stack.isEmpty()) {
     while (current) {
       stack.push(current);
@@ -12,74 +13,126 @@ export function inorderTraversal(root: TreeNode | null): number[] {
     }
     current = stack.pop();
     response.push(current!.val);
-    current = current!.right;
+    current = current?.right ?? null;
   }
   return response;
 }
 
 export function inorderTraversalRecursive(node: TreeNode | null): number[] {
-  if (!node) return [];
-  function recursiveFunc(node: TreeNode | null): any {
+  const result: number[] = [];
+  function recursiveFunc(node: TreeNode | null) {
     if (!node) return [];
-    return [
-      ...recursiveFunc(node?.left),
-      node.val,
-      ...recursiveFunc(node?.right),
-    ];
+    recursiveFunc(node.left);
+    result.push(node.val);
+    recursiveFunc(node.right);
   }
-  return recursiveFunc(node);
+  recursiveFunc(node);
+  return result;
+}
+
+export function preorderTraversalIterative(node: TreeNode | null): number[] {
+  if (!node) return [];
+  const response: number[] = [];
+  const stack = new DynamicStack<TreeNode>();
+  stack.push(node);
+  while (!stack.isEmpty()) {
+    let current = stack.pop();
+    response.push(current!.val);
+    if (current?.right) {
+      stack.push(current.right);
+    }
+    if (current?.left) {
+      stack.push(current.left);
+    }
+  }
+  return response;
 }
 
 export function preorderTraversalRecursive(node: TreeNode | null): number[] {
   if (!node) return [];
-  function recursiveFunc(node: TreeNode | null): any {
-    if (!node) return [];
-    return [
-      node.val,
-      ...recursiveFunc(node?.left),
-      ...recursiveFunc(node?.right),
-    ];
+  const response: number[] = [];
+  function recursiveFunction(node: TreeNode | null): void {
+    if (!node) return;
+    response.push(node.val);
+    recursiveFunction(node.left);
+    recursiveFunction(node.right);
   }
-  return recursiveFunc(node);
+  recursiveFunction(node);
+  return response;
 }
 
 export function postorderTraversalIterative(node: TreeNode | null): number[] {
-  //TODO:
   if (!node) return [];
-  function recursiveFunc(node: TreeNode | null): any {
-    if (!node) return [];
-    if (!node.left && !node.right) {
-      return [node.val, ...recursiveFunc(node)];
+  const response: number[] = [];
+  const stack = new DynamicStack<[TreeNode, boolean]>(); //[Node - firstVisit]
+  stack.push([node, true]);
+  while (!stack.isEmpty()) {
+    const [current, firstVisit] = stack.pop()!;
+    if (firstVisit) {
+      stack.push([current, false]);
+      if (current.right) {
+        stack.push([current.right, true]);
+      }
+      if (current.left) {
+        stack.push([current.left, true]);
+      }
+    } else {
+      response.push(current.val);
     }
-    return [
-      ...recursiveFunc(node?.left || null),
-      ...recursiveFunc(node?.right || null),
-    ];
   }
-  return [...recursiveFunc(node)];
+  return response;
+}
+
+export function postorderTraversalRecursive(node: TreeNode | null): number[] {
+  if (!node) return [];
+  const response: number[] = [];
+  function recursiveFunction(node: TreeNode | null): void {
+    if (!node) return;
+    recursiveFunction(node.left);
+    recursiveFunction(node.right);
+    response.push(node.val);
+  }
+  recursiveFunction(node);
+  return response;
 }
 
 export function levelOrderTraversalIterative(node: TreeNode | null): number[] {
-  //TODO:
   if (!node) return [];
-  function recursiveFunc(
-    node: TreeNode | null,
-    direction: 'left' | 'rigth'
-  ): any {
-    if (!node) return [];
-    return [
-      node.val,
-      ...recursiveFunc(node?.left || null, 'left'),
-      ...recursiveFunc(node?.right || null, 'rigth'),
-    ];
+  const response: number[] = [];
+  const queue = new DinamycQueue<TreeNode>();
+  queue.enqueue(node);
+  while (!queue.isEmpty()) {
+    const current = queue.dequeue()!;
+    response.push(current.val);
+    if (current.left) {
+      queue.enqueue(current.left);
+    }
+    if (current.right) {
+      queue.enqueue(current.right);
+    }
   }
-  return [
-    node.val,
-    ...recursiveFunc(node.left, 'left'),
-    ...recursiveFunc(node.right, 'rigth'),
-  ];
+  return response;
 }
-
+export function levelOrderTraversalRecursive(node: TreeNode | null): number[] {
+  if (!node) return [];
+  const response: number[] = [];
+  function recursiveFunction(nodes: TreeNode[]): void {
+    if (!nodes.length) return;
+    const nextNodes: TreeNode[] = [];
+    nodes.forEach((node) => {
+      response.push(node.val);
+      if (node.left) {
+        nextNodes.push(node.left);
+      }
+      if (node.right) {
+        nextNodes.push(node.right);
+      }
+    });
+    recursiveFunction(nextNodes);
+  }
+  recursiveFunction([node]);
+  return response;
+}
 export function arrayToTreeNode(data: any[] | null): TreeNode | null {
   if (!data) return null;
   if (!data.length) return null;
@@ -94,7 +147,6 @@ export function arrayToTreeNode(data: any[] | null): TreeNode | null {
 }
 
 export function buildTreeFromArray(arr: Array<number | null> | null) {
-  //??[1, 2, 3, 4, 5, null, 8, null, null, 6, 7, null, null, 9]
   if (!arr) return null;
   if (arr.length === 0) return null;
   const root = new TreeNode(arr[0]!);
@@ -117,3 +169,7 @@ export function buildTreeFromArray(arr: Array<number | null> | null) {
 
   return root;
 }
+
+//arbol con n hijos
+//node.val Node.childre:node[] = []
+//bfs && dfs(pre-order) //iterativo y recursivo
