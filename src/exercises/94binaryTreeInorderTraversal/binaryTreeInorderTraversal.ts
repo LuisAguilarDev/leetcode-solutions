@@ -169,7 +169,3 @@ export function buildTreeFromArray(arr: Array<number | null> | null) {
 
   return root;
 }
-
-//arbol con n hijos
-//node.val Node.childre:node[] = []
-//bfs && dfs(pre-order) //iterativo y recursivo
