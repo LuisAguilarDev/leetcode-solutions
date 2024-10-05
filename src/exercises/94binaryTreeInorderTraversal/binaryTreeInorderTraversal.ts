@@ -2,6 +2,7 @@ import { TreeNode } from '../../dataTypes/binaryTree/binaryTree';
 import { DynamicStack } from '../../dataTypes/stack/stackFixed';
 import { DinamycQueue } from '../../dataTypes/queue/queue';
 
+//Left-Root-Right - use cases: Sorting in binary search trees (BSTs)
 export function inorderTraversalIterative(root: TreeNode | null): number[] {
   const response: number[] = [];
   const stack = new DynamicStack<TreeNode>();
@@ -29,7 +30,7 @@ export function inorderTraversalRecursive(node: TreeNode | null): number[] {
   recursiveFunc(node);
   return result;
 }
-
+//Root-Left-Right - use cases: Copying, creating tree structures
 export function preorderTraversalIterative(node: TreeNode | null): number[] {
   if (!node) return [];
   const response: number[] = [];
@@ -60,7 +61,7 @@ export function preorderTraversalRecursive(node: TreeNode | null): number[] {
   recursiveFunction(node);
   return response;
 }
-
+//Left-Right-Root - use cases: Deleting nodes, memory management
 export function postorderTraversalIterative(node: TreeNode | null): number[] {
   if (!node) return [];
   const response: number[] = [];
@@ -95,7 +96,7 @@ export function postorderTraversalRecursive(node: TreeNode | null): number[] {
   recursiveFunction(node);
   return response;
 }
-
+//By level - use cases: Finding shortest path, level-based operations in trees
 export function levelOrderTraversalIterative(node: TreeNode | null): number[] {
   if (!node) return [];
   const response: number[] = [];
@@ -113,6 +114,7 @@ export function levelOrderTraversalIterative(node: TreeNode | null): number[] {
   }
   return response;
 }
+
 export function levelOrderTraversalRecursive(node: TreeNode | null): number[] {
   if (!node) return [];
   const response: number[] = [];
@@ -133,6 +135,7 @@ export function levelOrderTraversalRecursive(node: TreeNode | null): number[] {
   recursiveFunction([node]);
   return response;
 }
+//utility functions
 export function arrayToTreeNode(data: any[] | null): TreeNode | null {
   if (!data) return null;
   if (!data.length) return null;
