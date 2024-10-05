@@ -30,7 +30,7 @@ export function bfsRecursive(root: NaryTree | null): number[] {
   recursiveFn([root]);
   return response;
 }
-//1) preorder 2)level order 3) inorder
+//1) preorder 2)postorder 3) inorder
 export function dfsPreorderIterative(root: NaryTree | null): number[] {
   if (!root) return [];
   const response: number[] = [];
