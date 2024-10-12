@@ -1,8 +1,5 @@
-import {
-  buildNaryTreeFromArray,
-  longestPathIterative,
-  longestPathRecursive,
-} from './longestPath';
+import { buildNaryTreeFromArray } from '../longestPath/longestPath';
+import { roadSumIterative, roadSumRecursive } from './roadSum';
 
 describe('Longest Path', () => {
   test('#1 It should return the longest path of the tree', () => {
@@ -26,7 +23,7 @@ describe('Longest Path', () => {
       [15, 1],
       [16, 0],
     ]);
-    expect(longestPathIterative(root)).toEqual([1, 2, 5, 9, 13, 15, 16]);
+    expect(roadSumIterative(root)).toEqual([7, 16, 29, 44, 61, 10, 21, 22, 52]);
   });
   test('#2 It should return the longest path of the tree', () => {
     const tree = buildNaryTreeFromArray([
@@ -41,7 +38,7 @@ describe('Longest Path', () => {
       [7, 1],
       [8, 0],
     ]);
-    expect(longestPathIterative(tree)).toEqual([1, 3, 5, 7, 8]);
+    expect(roadSumIterative(tree)).toEqual([7, 24, 10, 52]);
   });
   test('#3 It should return the longest path of the tree', () => {
     const root = buildNaryTreeFromArray([
@@ -64,7 +61,7 @@ describe('Longest Path', () => {
       [15, 1],
       [16, 0],
     ]);
-    expect(longestPathRecursive(root)).toEqual([1, 2, 5, 9, 13, 15, 16]);
+    expect(roadSumRecursive(root)).toEqual([7, 16, 29, 44, 61, 10, 21, 22, 52]);
   });
   test('#4 It should return the longest path of the tree', () => {
     const tree = buildNaryTreeFromArray([
@@ -79,6 +76,6 @@ describe('Longest Path', () => {
       [7, 1],
       [8, 0],
     ]);
-    expect(longestPathRecursive(tree)).toEqual([1, 3, 5, 7, 8]);
+    expect(roadSumRecursive(tree)).toEqual([7, 24, 10, 52]);
   });
 });

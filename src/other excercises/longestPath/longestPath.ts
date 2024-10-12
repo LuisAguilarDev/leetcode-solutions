@@ -1,4 +1,3 @@
-import { TreeNode } from '../../dataTypes/binaryTree/binaryTree';
 import { NaryTree } from '../../dataTypes/NAryTree/NAryTree';
 import { DynamicStack } from '../../dataTypes/stack/stackFixed';
 
@@ -11,21 +10,41 @@ export function longestPathIterative(root: NaryTree | null): number[] {
   if (!root) return [];
   let longestPath: number[] = [];
   let currentPath: number[] = [];
-  const stack = new DynamicStack<[NaryTree, number]>();
+  const stack = new DynamicStack<[NaryTree, number]>(); //Node,depth
   stack.push([root, 0]);
   while (!stack.isEmpty()) {
-    const [current, depth] = stack.pop()!;
+    const [node, depth] = stack.pop()!;
+    currentPath[depth] = node.val;
     const currentDepth = depth + 1;
-    currentPath[depth] = current.val;
-    if (current.children.length === 0) {
+    if (node.children.length === 0) {
       if (currentDepth > longestPath.length) {
         longestPath = currentPath.slice(0, currentDepth);
       }
     }
-    for (let i = current.children.length - 1; i >= 0; i--) {
-      stack.push([current.children[i], currentDepth]);
+    for (let i = node.children.length - 1; i >= 0; i--) {
+      stack.push([node.children[i], currentDepth]);
     }
   }
+  return longestPath;
+}
+export function longestPathRecursive(root: NaryTree | null): number[] {
+  if (!root) return [];
+  let longestPath: number[] = [];
+  let currentPath: number[] = [];
+  function recursiveFn(node: NaryTree | null, depth: number) {
+    if (!node) return;
+    currentPath[depth] = node.val;
+    const currentDepth = depth + 1;
+    if (node.children.length === 0) {
+      if (currentDepth > longestPath.length) {
+        longestPath = currentPath.slice(0, currentDepth);
+      }
+    }
+    for (let i = 0; i <= node.children.length - 1; i++) {
+      recursiveFn(node.children[i], currentDepth);
+    }
+  }
+  recursiveFn(root, 0);
   return longestPath;
 }
 export function buildNaryTreeFromArray(
