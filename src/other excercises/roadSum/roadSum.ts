@@ -12,9 +12,10 @@ export function roadSumIterative(node: NaryTree | null): number[] {
     const currentSum = sum + node.val;
     if (node.children.length === 0) {
       sumPath.push(currentSum);
-    }
-    for (let i = node.children.length - 1; i >= 0; i--) {
-      stack.push([node.children[i], currentSum]);
+    } else {
+      for (let i = node.children.length - 1; i >= 0; i--) {
+        stack.push([node.children[i], currentSum]);
+      }
     }
   }
   return sumPath;
@@ -28,9 +29,10 @@ export function roadSumRecursive(node: NaryTree | null): number[] {
     const currentSum = sum + node.val;
     if (node.children.length === 0) {
       sumPath.push(currentSum);
-    }
-    for (let i = 0; i <= node.children.length; i++) {
-      recursiveFn(node.children[i], currentSum);
+    } else {
+      for (let i = 0; i <= node.children.length; i++) {
+        recursiveFn(node.children[i], currentSum);
+      }
     }
   }
   recursiveFn(node, 0);
