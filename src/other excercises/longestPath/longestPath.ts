@@ -18,7 +18,8 @@ export function longestPathIterative(root: NaryTree | null): number[] {
     const currentDepth = depth + 1;
     if (node.children.length === 0) {
       if (currentDepth > longestPath.length) {
-        longestPath = currentPath.slice(0, currentDepth);
+        longestPath = [...currentPath];
+        continue;
       }
     }
     for (let i = node.children.length - 1; i >= 0; i--) {
@@ -68,29 +69,25 @@ export function buildNaryTreeFromArray(
 
 //consecuencias del estado con algoritmos  //Memoria orden de magnitud velocidad, iterativo recursivo //ventajas y desventajas
 
-// export function longestPathIterativePrimer(root: TreeNode | null): number[] {
-//   if (!root) return [];
-//   const response: Array<number[]> = [];
-//   const stack = new DynamicStack<[TreeNode, number[]]>(); // Pila que guarda el nodo actual y el camino
-//   stack.push([root, []]);
-//   while (!stack.isEmpty()) {
-//     const [currentNode, path] = stack.pop()!;
-//     const newPath = [...path, currentNode.val];
-//     if (!currentNode.left && !currentNode.right) {
-//       response.push(newPath);
-//     }
-//     if (currentNode.right) {
-//       stack.push([currentNode.right, newPath]);
-//     }
-//     if (currentNode.left) {
-//       stack.push([currentNode.left, newPath]);
-//     }
-//   }
-//   let longestArray: number[] = [];
-//   response.forEach((item) => {
-//     if (item.length > longestArray.length) {
-//       longestArray = item;
-//     }
-//   });
-//   return longestArray;
-// }
+export function longestPathIterativeFirstAproach(
+  root: NaryTree | null
+): number[] {
+  if (!root) return [];
+  let longestArray: Array<number> = [];
+  const stack = new DynamicStack<[NaryTree, number[]]>(); //Node,depth
+  stack.push([root, []]);
+  while (!stack.isEmpty()) {
+    const [currentNode, path] = stack.pop()!;
+    const newPath = [...path, currentNode.val];
+    if (currentNode.children.length === 0) {
+      if (newPath.length > longestArray.length) {
+        longestArray = newPath;
+      }
+    } else {
+      for (let i = 0; i <= currentNode.children.length - 1; i++) {
+        stack.push([currentNode.children[i], newPath]);
+      }
+    }
+  }
+  return longestArray;
+}
