@@ -33,21 +33,23 @@ export class VirtualMachine {
     this.#registers[RegisterAddress] += this.#registers[Operand];
   }
   #SUB(RegisterAddress:number, Operand:number) {
-    this.#registers[RegisterAddress] -= this.#registers[Operand];
+    this.#registers[RegisterAddress] -= Operand;
   }
   #INC(RegisterAddress:number) {
     this.#registers[RegisterAddress]++;
   }
-  #JMP(RegisterAddress:number) {
-    this.#programCounter = RegisterAddress;
+  #JMP(Operand:number) {
+    this.#programCounter = Operand;
   }
-  #JZ(RegisterAddress:number) {
-    if (this.#registers[0x00] === 0) {
-      this.#programCounter = RegisterAddress;
+  #JZ(RegisterAddress:number,Operand:number) {
+    if (this.#registers[RegisterAddress] === 0) {
+      this.#programCounter = Operand;
+      return
     }
+    this.#programCounter += 3;
   }
   #HALT() {
-    this.#programCounter = 0;
+    console.log("Program halted.");
   }
   
   storeInMemory(address:number, number:number) {
@@ -64,13 +66,17 @@ export class VirtualMachine {
   }
 
   executeProgram() {
-    while (this.#programCounter >= 0) {
+    this.#programCounter = 0;
+    while (true) {
       const opcode = this.#ram[this.#programCounter];
       const operand = this.#ram[this.#programCounter + 1];
       const registerAddress = this.#ram[this.#programCounter + 2];
       this.#instructionSet[opcode](operand, registerAddress);
-      if (opcode === 0x07 || opcode === 0x08) {
+      if (opcode === 0x08) {
         break;
+      }
+      if (opcode === 0x06 || opcode === 0x07) {
+        continue
       }
       this.#programCounter += 3;
     }
