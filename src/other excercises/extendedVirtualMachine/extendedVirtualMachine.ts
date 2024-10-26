@@ -39,6 +39,7 @@ export class ExtendedVirtualMachine {
     };
   }
   #LOAD(registerAddress: number, address: number) {
+    console.log(this.#ram[address]);
     this.#registers[registerAddress] = this.#ram[address];
   }
   #STORE(registerAddress: number, address: number) {
@@ -107,13 +108,15 @@ export class ExtendedVirtualMachine {
     this.#stackPointer++;
   }
   #CALL(_: number, address: number) {
-    this.#ram[this.#ram.length - this.#stackPointer] = this.#programCounter;
+    this.#ram[this.#ram.length - this.#stackPointer - 1] =
+      this.#programCounter + 3;
     this.#stackPointer++;
     this.#programCounter = address;
+    console.log('callto:', address);
   }
   #RET(_: number, __: number) {
     this.#stackPointer--;
-    this.#programCounter = this.#ram[this.#ram.length - this.#stackPointer];
+    this.#programCounter = this.#ram[this.#ram.length - this.#stackPointer - 1];
   }
   #NOP(_: number, address: number) {
     //??;
@@ -132,22 +135,36 @@ export class ExtendedVirtualMachine {
   }
 
   loadProgram(program: number[]) {
+    console.log(program.length);
     for (let i = 0; i < program.length; i++) {
       this.#ram[i] = program[i];
     }
+
+    console.log(this.#ram.slice(0, 57));
   }
 
   executeProgram() {
     this.#programCounter = 0;
+    let iteration = 0;
     while (true) {
       const opcode = this.#ram[this.#programCounter];
       const operand1 = this.#ram[this.#programCounter + 1];
       const operand2 = this.#ram[this.#programCounter + 2];
       this.#instructionSet[opcode](operand1, operand2);
+      if (iteration === 20) {
+        break;
+      }
+      console.log(iteration, {
+        opcode,
+        operand1,
+        operand2,
+        pc: this.#programCounter,
+      });
+      iteration++;
       if (opcode === 0x08) {
         break;
       }
-      if (opcode === 0x06 || opcode === 0x07) {
+      if ([0x0e, 0x0f, 0x06, 0x07].includes(opcode)) {
         continue;
       }
       this.#programCounter += 3;
