@@ -161,10 +161,10 @@ export class ExtendedVirtualMachine {
         pc: this.#programCounter,
       });
       iteration++;
-      if (opcode === 0x08) {
+      if (opcode === 0x11) {
         break;
       }
-      if ([0x0e, 0x0f, 0x06, 0x07].includes(opcode)) {
+      if ([0x09, 0x0a, 0x0b, 0x0e, 0x0f].includes(opcode)) {
         continue;
       }
       this.#programCounter += 3;

@@ -16,12 +16,13 @@ describe('Extended Virtual Machine', () => {
     // Nota: Tienes que pasar los parámetros de las funciones en el stack
     const virtualMachine = new ExtendedVirtualMachine();
 
+    //Functions result are stored in R0
     // prettier-ignore
     const baseProgram = [
-      0x0e, 0x00, 0x09,//call F1
+      0x0e, 0x00, 0x09,//call F1 return address?
       0x0e, 0x00, 0x1E,//call F2
-      0x08, 0x00, 0x00
-  ];
+      0x11, 0x00, 0x00
+    ];
     // prettier-ignore
     const F1Program = [
       0x01, 0x00, 0x34,//load 09
