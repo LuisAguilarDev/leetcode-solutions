@@ -45,3 +45,45 @@ export function escapePyramidHead(room: string[][]) {
   }
   return -1;
 }
+
+export function escapePyramidHead2(room: string[][]) {
+  function find_coord() {
+    const piramidHead = '▲';
+    const [NROWS, NCOLS] = [room.length, room[0].length];
+    for (let r = 0; r < NROWS; r++) {
+      for (let c = 0; c < NCOLS; c++) {
+        if (room[r][c] == piramidHead) {
+          return [r, c];
+        }
+      }
+    }
+  }
+  const start = find_coord();
+  const target = 'T';
+  const queue = [[...start!, 0]];
+  const visited = new Set(start!.toString());
+  while (queue.length) {
+    let [r, c, n] = queue.pop()!;
+    if (room[r][c] === target) {
+      return n;
+    }
+    const directions = [
+      [1, 0],
+      [-1, 0],
+      [0, 1],
+      [0, -1],
+    ];
+    for (const [x, y] of directions) {
+      const newR = r + x;
+      const newC = c + y;
+      const position = room[newR]?.[newC];
+      if (!position) continue;
+      const posStr = [newR, newC].toString();
+      if (position !== '#' && !visited.has(posStr)) {
+        visited.add(posStr);
+        queue.unshift([newR, newC, n + 1]);
+      }
+    }
+  }
+  return -1;
+}
