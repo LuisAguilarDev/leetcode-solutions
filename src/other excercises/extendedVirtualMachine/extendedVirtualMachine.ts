@@ -15,7 +15,7 @@ export class ExtendedVirtualMachine {
     this.#registers = { 0x00: 0, 0x01: 0, 0x02: 0, 0x03: 0 };
     this.#ram = Array(256).fill(0);
     this.#programCounter = 0;
-    this.#stackPointer = 0;
+    this.#stackPointer = this.#ram.length - 1;
     this.#basePointer = 0;
     this.#flags = 0b0000;
     this.#instructionSet = {
@@ -39,7 +39,6 @@ export class ExtendedVirtualMachine {
     };
   }
   #LOAD(registerAddress: number, address: number) {
-    console.log(this.#ram[address]);
     this.#registers[registerAddress] = this.#ram[address];
   }
   #STORE(registerAddress: number, address: number) {
@@ -69,6 +68,7 @@ export class ExtendedVirtualMachine {
   #CMP(address1: number, address2: number) {
     //3210
     //(OF)-(CF)-(SF)-(ZF)
+    //siempre debe evaluar todas las flags
     const result = this.#registers[address1] - this.#registers[address2];
     if (result === 0) {
       this.#setFlag(0);
@@ -82,6 +82,7 @@ export class ExtendedVirtualMachine {
     let A_sign = (this.#registers[address1] >> 31) & 1;
     let B_sign = (this.#registers[address2] >> 31) & 1;
     let result_sign = (result >> 31) & 1;
+
     if (A_sign !== B_sign && result_sign !== A_sign) {
       this.#setFlag(3);
     }
@@ -100,27 +101,24 @@ export class ExtendedVirtualMachine {
     }
   }
   #PUSH(address: number, _?: number) {
-    this.#ram[this.#ram.length - this.#stackPointer] = this.#registers[address];
-    this.#stackPointer++;
+    this.#ram[this.#stackPointer] = this.#registers[address];
+    this.#stackPointer--;
   }
   #POP(address: number, _?: number) {
-    this.#registers[address] = this.#ram[this.#ram.length - this.#stackPointer];
+    this.#registers[address] = this.#ram[this.#stackPointer];
     this.#stackPointer++;
   }
   #CALL(_: number, address: number) {
-    this.#ram[this.#ram.length - this.#stackPointer - 1] =
-      this.#programCounter + 3;
-    this.#stackPointer++;
+    this.#ram[this.#stackPointer] = this.#programCounter + 3;
+    this.#stackPointer--;
     this.#programCounter = address;
-    console.log('callto:', address);
+    //push register values on stack???
   }
   #RET(_: number, __: number) {
     this.#stackPointer--;
-    this.#programCounter = this.#ram[this.#ram.length - this.#stackPointer - 1];
+    this.#programCounter = this.#ram[this.#stackPointer];
   }
-  #NOP(_: number, address: number) {
-    //??;
-  }
+  #NOP(_: number, __: number) {}
   #HALT() {
     console.log('Program halted.');
   }

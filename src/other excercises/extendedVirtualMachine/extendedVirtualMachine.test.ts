@@ -12,7 +12,7 @@ describe('Extended Virtual Machine', () => {
     // Y = 20
     // W = F1(X,Y)
     // Z = F2(W,W)
-
+    // Si la operacion es muy compleja probar las cosas pequeñas
     // Nota: Tienes que pasar los parámetros de las funciones en el stack
     const virtualMachine = new ExtendedVirtualMachine();
 
@@ -47,9 +47,8 @@ describe('Extended Virtual Machine', () => {
     // prettier-ignore
     // 52-0x34 - 55-0x37 //
     const variables = [
-        0x10, 0x0A, 0x00,//storing 10 // part of the progmam
-        0x10, 0x14, 0x00//storing 20 // part of the progmam
-      ]
+      0x0A,0x14 // storing 10 / 20
+    ]
     virtualMachine.loadProgram([
       ...baseProgram,
       ...F1Program,

@@ -49,7 +49,7 @@ export function longestPathRecursive(root: NaryTree | null): number[] {
   return longestPath;
 }
 export function buildNaryTreeFromArray(
-  arr: [number, number][]
+  arr: [number, number][],
 ): NaryTree | null {
   if (arr.length === 0) return null;
   const root = new NaryTree(arr[0][0]);
@@ -70,7 +70,7 @@ export function buildNaryTreeFromArray(
 //consecuencias del estado con algoritmos  //Memoria orden de magnitud velocidad, iterativo recursivo //ventajas y desventajas
 
 export function longestPathIterativeFirstAproach(
-  root: NaryTree | null
+  root: NaryTree | null,
 ): number[] {
   if (!root) return [];
   let longestArray: Array<number> = [];
