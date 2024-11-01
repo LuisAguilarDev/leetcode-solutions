@@ -1,28 +1,21 @@
 export function escapePyramidHead(room: string[][]) {
-  const player = 'T';
-  const piramidHead = '▲';
-  let start: undefined | number[];
-  for (let i = 0; i < room.length; i++) {
-    for (let j = 0; j < room[i].length; j++) {
-      if (room[i][j] === player || room[i][j] === piramidHead) {
-        start = [i, j];
+  function findPiramid() {
+    for (let i = 0; i < room.length; i++) {
+      for (let j = 0; j < room[i].length; j++) {
+        if (room[i][j] === '▲') {
+          return [i, j];
+        }
       }
-      if (start) {
-        break;
-      }
-    }
-    if (start) {
-      break;
     }
   }
-  if (!start) return -1;
-  const targetDic: { '▲': string; T: string } = { '▲': 'T', T: '▲' };
-  const target = targetDic[room[start[0]][start[1]] as '▲' | 'T'];
+  const start = findPiramid()!;
+  const target = 'T';
   const queue = [[...start, 0]];
-  const visited = new Set(start[0].toString() + start[1].toString());
+  const visited = new Set();
+  visited.add(start[0] * room[0].length + start[1]);
   while (queue.length) {
-    const [deep, level, step] = queue.pop()!;
-    if (room[deep][level] === target) {
+    const [row, column, step] = queue.shift()!;
+    if (room[row][column] === target) {
       return step;
     }
     const directions = [
@@ -32,14 +25,12 @@ export function escapePyramidHead(room: string[][]) {
       [-1, 0],
     ];
     for (const [x, y] of directions) {
-      const position = room[deep + x]?.[level + y];
-      if (
-        position &&
-        position !== '#' &&
-        !visited.has((deep + x).toString() + (level + y))
-      ) {
-        visited.add((deep + x).toString() + (level + y));
-        queue.unshift([deep + x, level + y, step + 1]);
+      const position = room[row + x]?.[column + y];
+      if (!position || position === '#') continue;
+      const index = (row + x) * room[0].length + (column + y);
+      if (!visited.has(index)) {
+        visited.add(index);
+        queue.push([row + x, column + y, step + 1]);
       }
     }
   }
