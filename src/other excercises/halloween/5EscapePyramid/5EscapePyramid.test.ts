@@ -1,4 +1,4 @@
-import { escapePyramidHead, escapePyramidHead2 } from './5EscapePyramid';
+import { escapePyramidHead, findPathToTarget } from './5EscapePyramid';
 
 describe('Escape Pyramid', () => {
   test('#1 It should count pyramid steps to reach the player', () => {
@@ -38,7 +38,7 @@ describe('Escape Pyramid', () => {
     expect(result).toEqual(9);
   });
   test('#5 It should count pyramid steps to reach the player', () => {
-    const result = escapePyramidHead2([
+    const result = findPathToTarget([
       ['.', '.', '#', '.', '▲'],
       ['#', '.', '#', '.', '#'],
       ['.', '.', '.', '.', '.'],
@@ -48,7 +48,7 @@ describe('Escape Pyramid', () => {
     expect(result).toEqual(8);
   });
   test('#6 It should count pyramid steps to reach the player', () => {
-    const result = escapePyramidHead2([
+    const result = findPathToTarget([
       ['T', '.', '#', '.'],
       ['.', '.', '.', '.'],
       ['▲', '.', '.', '#'],
@@ -57,7 +57,7 @@ describe('Escape Pyramid', () => {
     expect(result).toEqual(2);
   });
   test('#7 It should count pyramid steps to reach the player', () => {
-    const result = escapePyramidHead2([
+    const result = findPathToTarget([
       ['#', '#', '#'],
       ['▲', '.', '#'],
       ['.', '#', 'T'],
@@ -65,7 +65,7 @@ describe('Escape Pyramid', () => {
     expect(result).toEqual(-1);
   });
   test('#8 It should count pyramid steps to reach the player', () => {
-    const result = escapePyramidHead2([
+    const result = findPathToTarget([
       ['.', '.', '.', '.'],
       ['.', '.', '#', '.'],
       ['#', '.', '#', '.'],
