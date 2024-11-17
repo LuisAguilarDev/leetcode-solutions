@@ -43,7 +43,6 @@ export function nearestExitDfs(
   // prettier-ignore
   const directions = [[1, 0],[-1, 0],[0, 1],[0, -1]];
   const [IROWS, ICOLS] = [maze.length - 1, maze[0].length - 1];
-  console.log(IROWS, ICOLS);
   const stack = [[...entrance, 0]];
   const distances = new Map();
   distances.set(entrance.toString(), 0);
