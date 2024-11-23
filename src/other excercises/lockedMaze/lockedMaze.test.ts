@@ -1,4 +1,4 @@
-import { lockedMaze } from './lockedMaze';
+import { lockedMaze, lockedMaze2 } from './lockedMaze';
 
 describe('Locked Maze', () => {
   test('#1 It should return if all cells were visited', () => {
@@ -8,7 +8,7 @@ describe('Locked Maze', () => {
         [[1, 2],[2, 3],[7, 5]],
         [[1, 8],[2, 9],[6, 5]],
       ];
-    expect(lockedMaze(maze, 1)).toEqual(true);
+    expect(lockedMaze2(maze, 1)).toEqual(true);
   });
   test('#2 It should return if all cells were visited', () => {
     //prettier-ignore
@@ -17,7 +17,7 @@ describe('Locked Maze', () => {
         [[1, 2],[2, 3],[7, 5]],
         [[1, 8],[2, 9],[6, 5]],
       ];
-    expect(lockedMaze(maze, 2)).toEqual(false);
+    expect(lockedMaze2(maze, 2)).toEqual(false);
   });
   test('#3 It should return if all cells were visited', () => {
     //prettier-ignore
@@ -26,7 +26,7 @@ describe('Locked Maze', () => {
         [[1, 2],[2, 3],[7, 5],[5, 6]],
         [[1, 8],[2, 9],[6, 5],[5, 6]],
       ];
-    expect(lockedMaze(maze, 2)).toEqual(false);
+    expect(lockedMaze2(maze, 2)).toEqual(false);
   });
   test('#4 It should return if all cells were visited', () => {
     //prettier-ignore
@@ -42,9 +42,9 @@ describe('Locked Maze', () => {
         [[1, 8],[2, 9],[6, 5],[5, 6],[5, 6],[5, 6],[5, 6],[5, 6],[5, 6],[5, 6]],
         [[1, 8],[2, 9],[6, 5],[5, 6],[5, 6],[5, 6],[5, 6],[5, 6],[5, 6],[5, 6]]
       ];
-    expect(lockedMaze(maze, 41)).toEqual(false);
+    expect(lockedMaze2(maze, 41)).toEqual(false);
   });
-  xtest('#5 It should return if all cells were visited', () => {
+  test('#5 It should return if all cells were visited', () => {
     //prettier-ignore
     //needs improvement too slow for bigger maze
     const maze = [
@@ -93,8 +93,9 @@ describe('Locked Maze', () => {
           [25, 29, 39],
           [46, 56, 57],
           [55, 45],
-          [],
-          [],
+          [26],
+          [28],
+          [27],
           [],
           [49, 40],
           [1, 2, 4, 5, 6],
@@ -179,6 +180,6 @@ describe('Locked Maze', () => {
         ],
       ];
 
-    expect(lockedMaze(maze, 41)).toEqual(true);
+    expect(lockedMaze2(maze, 41)).toEqual(true);
   });
 });
