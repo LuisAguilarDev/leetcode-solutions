@@ -90,7 +90,7 @@ export function lockedMaze2(
     saveToAccesible(coordinatesThatOpen, baseRoom);
   }
   function getKeysFromAvailableRooms(baseRoom: number) {
-    const availableRooms = accesibleLockedRooms.get(baseRoom) ?? [];
+    const availableRooms = accesibleLockedRooms.get(baseRoom) ?? new Set();
     accesibleLockedRooms.delete(baseRoom);
     for (const availableRoom of availableRooms) {
       if (unlockedRooms.has(availableRoom)) continue;
@@ -103,15 +103,16 @@ export function lockedMaze2(
   function saveToAccesible(coordinatesThatOpen: number[], roomNumber: number) {
     //si no abrí nada guardar el cuarto que se puede abrir si se logra conseguir una celda adyacente con llave
     for (const adyacentRoom of coordinatesThatOpen) {
-      const currentRooms = accesibleLockedRooms.get(adyacentRoom) ?? [];
-      accesibleLockedRooms.set(adyacentRoom, [...currentRooms, roomNumber]);
+      const currentRooms = accesibleLockedRooms.get(adyacentRoom) ?? new Set();
+      currentRooms.add(roomNumber);
+      accesibleLockedRooms.set(adyacentRoom, currentRooms);
     }
   }
   const totalRooms = ROWS * COLS;
   const unlockedRooms = new Set<number>([startRoom]);
   const keys = new Set<number>();
   const start: [number, number] = decodeRoom(startRoom);
-  const accesibleLockedRooms: Map<number, number[]> = new Map();
+  const accesibleLockedRooms: Map<number, Set<number>> = new Map();
   addKeys(...start);
   while (keys.size) {
     const baseRoom = keys.values().next().value!;
