@@ -1,4 +1,4 @@
-import { dynamicStack } from '../../dataTypes/stack/stackFixed';
+import { DynamicStack } from '../../dataTypes/stack/stackFixed';
 
 export function isValid(s: string): boolean {
   const symbolsDictionary: { [key: string]: string } = {
@@ -7,7 +7,7 @@ export function isValid(s: string): boolean {
     '{': '}',
   } as const;
 
-  const stack = new dynamicStack();
+  const stack = new DynamicStack();
   for (const symbol of s) {
     if (symbolsDictionary[symbol]) {
       stack.push(symbol);
