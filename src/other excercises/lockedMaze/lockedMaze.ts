@@ -120,7 +120,6 @@ export function lockedMaze2(
   //prettier-ignore
   const directions = [[1,0],[-1,0],[0,1],[0,-1]]
   const [ROWS, COLS] = [maze.length, maze[0].length];
-  debugger;
   function decodeRoom(roomNumber: number): [number, number] {
     return [Math.floor((roomNumber - 1) / ROWS), (roomNumber - 1) % ROWS];
   }
@@ -135,22 +134,23 @@ export function lockedMaze2(
     }
   }
   function processRoom(r: number, c: number, baseRoom: number) {
-    const coordinatesThatOpen = [];
+    const coordinatesThatCanOpen = [];
     for (const [dr, dc] of directions) {
       const [nr, nc] = [r + dr, c + dc];
-      const keysOnRoom = maze[nr]?.[nc];
-      if (!keysOnRoom) continue;
+      const room = maze[nr]?.[nc];
+      if (!room) continue;
       const roomNumber = encodeRoom([nr, nc]);
       if (unlockedRooms.has(roomNumber)) {
-        addKeys(...[r, c]);
-        unlockedRooms.add(baseRoom);
+        unlockedRooms.add(baseRoom); //open the room
+        addKeys(r, c); //take the keys
+        path.push(baseRoom); //mark as visited
         //traer las llaves del cuarto cerrado accesible
         getKeysFromAvailableRooms(baseRoom);
         return;
       }
-      coordinatesThatOpen.push(roomNumber);
+      coordinatesThatCanOpen.push(roomNumber);
     }
-    saveToAccesible(coordinatesThatOpen, baseRoom);
+    saveToAccesible(coordinatesThatCanOpen, baseRoom);
   }
   function getKeysFromAvailableRooms(baseRoom: number) {
     const availableRooms = accesibleLockedRooms.get(baseRoom) ?? new Set();
@@ -158,8 +158,9 @@ export function lockedMaze2(
     for (const availableRoom of availableRooms) {
       if (unlockedRooms.has(availableRoom)) continue;
       const [r, c] = decodeRoom(availableRoom);
-      addKeys(r, c);
-      unlockedRooms.add(availableRoom);
+      unlockedRooms.add(availableRoom); //open the room
+      addKeys(r, c); //take the keys
+      path.push(availableRoom); //mark as visited
       getKeysFromAvailableRooms(availableRoom);
     }
   }
