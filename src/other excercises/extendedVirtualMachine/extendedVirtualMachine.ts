@@ -143,22 +143,11 @@ export class ExtendedVirtualMachine {
 
   executeProgram() {
     this.#programCounter = 0;
-    let iteration = 0;
     while (true) {
       const opcode = this.#ram[this.#programCounter];
       const operand1 = this.#ram[this.#programCounter + 1];
       const operand2 = this.#ram[this.#programCounter + 2];
       this.#instructionSet[opcode](operand1, operand2);
-      if (iteration === 20) {
-        break;
-      }
-      console.log(iteration, {
-        opcode,
-        operand1,
-        operand2,
-        pc: this.#programCounter,
-      });
-      iteration++;
       if (opcode === 0x11) {
         break;
       }
