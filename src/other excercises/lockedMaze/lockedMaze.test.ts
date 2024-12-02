@@ -83,6 +83,7 @@ describe('Locked Maze', () => {
       ];
     const response = lockedMazeDFS(maze, 1);
     expect(response.unlockAll).toEqual(true);
+    console.log(response.path);
     expect(response.path).toEqual([
       1, 2, 1, 2, 3, 2, 1, 4, 5, 6, 5, 4, 7, 8, 7, 4, 5, 6, 9,
     ]);

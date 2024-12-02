@@ -21,17 +21,19 @@ export function lockedMazeDFS(
   const start: [number, number] = decodeRoom(startRoom);
   const keys = new Set([...maze[start[0]][start[1]], startRoom]);
   const startVisit = new Set<string>();
-  startVisit.add(startRoom.toString() + ',' + [...keys].toString());
+  startVisit.add(startRoom.toString() + ',' + [...keys].sort((a, b) => a - b));
   //stack = [r,c,path:number[],cellsVisited]
   const stack: Array<[number, number, number[], Set<string>]> = [
     [...start, [startRoom], startVisit],
   ];
   let firstValidPath = null;
   let stackLength = 0;
+
   while (stack.length && !firstValidPath) {
     if (stackLength < stack.length) {
       stackLength = stack.length;
     }
+    debugger;
     const [r, c, path, cellsVisited] = stack.pop()!;
     for (const key of maze[r][c]) {
       keys.add(key);
@@ -46,10 +48,16 @@ export function lockedMazeDFS(
       const roomNumber = encodeRoom([nr, nc]);
       const newPath = [...path];
       const newCellsVisited = new Set([...cellsVisited]);
-      const hash = roomNumber.toString() + ',' + [...keys].toString();
+      const hash =
+        roomNumber.toString() +
+        ',' +
+        [...keys].sort((a, b) => a - b).toString();
       if (!newCellsVisited.has(hash) && keys.has(roomNumber)) {
         newCellsVisited.add(hash);
         newPath.push(roomNumber);
+        for (const key of maze[nr][nc]) {
+          keys.add(key);
+        }
         stack.push([nr, nc, newPath, newCellsVisited]);
       }
     }
@@ -189,3 +197,10 @@ export function lockedMaze2(
   }
   return { unlockAll: unlockedRooms.size === totalRooms, path };
 }
+//prettier-ignore
+const maze = [
+      [[4, 2],[9,3],[5, 6]],
+      [    [],   [],   [7]],
+      [   [8],  [9],    []],
+    ];
+lockedMazeDFS(maze, 1);
