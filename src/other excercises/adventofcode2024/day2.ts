@@ -50,5 +50,8 @@ fs.readFile('./files/day2.txt', 'utf8', (err: any, content: string) => {
       totalSafeReports++;
     }
   });
-  console.log('🚀 ~ fs.readFile ~ totalSafeReports:', totalSafeReports);
+  console.log(
+    '🚀 ~ fs.readFile ~ totalSafeReportsWithDampener:',
+    totalSafeReports,
+  );
 });
