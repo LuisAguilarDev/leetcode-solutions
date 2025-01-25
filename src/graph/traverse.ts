@@ -1,4 +1,8 @@
-import { buildAdjacencyListWG } from './utils.graph';
+import {
+  buildAdjacency_matrixWG,
+  buildAdjacencyListWG,
+  buildAdjacencyMatrixUW,
+} from './utils.graph';
 // El  objetivo es llegar a G.  Tu punto de partida es S.  Tienes que devolver el camino con DFS and BFS y el coste total.
 // El orden correcto es :
 
@@ -14,21 +18,21 @@ import { buildAdjacencyListWG } from './utils.graph';
 
 // unweighted
 // const NODES = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'S'];
-// const EDGES = [
-//   ['A', 'S'],
-//   ['A', 'D'],
-//   ['S', 'B'],
-//   ['S', 'C'],
-//   ['C', 'E'],
-//   ['B', 'E'],
-//   ['B', 'D'],
-//   ['B', 'G'],
-//   ['D', 'F'],
-//   ['F', 'E'],
-//   ['E', 'H'],
-//   ['F', 'G'],
-//   ['H', 'G'],
-// ];
+const EDGESUW: [string, string][] = [
+  ['A', 'S'],
+  ['A', 'D'],
+  ['S', 'B'],
+  ['S', 'C'],
+  ['C', 'E'],
+  ['B', 'E'],
+  ['B', 'D'],
+  ['B', 'G'],
+  ['D', 'F'],
+  ['F', 'E'],
+  ['E', 'H'],
+  ['F', 'G'],
+  ['H', 'G'],
+];
 // weighted
 const NODES = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'S'];
 const EDGES: [string, string, number][] = [
@@ -127,3 +131,28 @@ console.log('isValidbfs:', visited.join('') == 'SABCDEG');
 const [visited2, path2, cost2] = dfs(adjacencyList, 'S', 'G');
 console.log('🚀 ~ path:', visited2, path2, cost2);
 console.log('isValiddfs:', visited2.join('') == 'SADFEHG');
+
+// const adjacencyMatrix = buildAdjacencyMatrixUW(NODES, EDGESUW);
+// console.log('🚀 ~ adjacencyMatrix:', adjacencyMatrix);
+
+const adjacencyMatrix = buildAdjacencyMatrixUW(
+  ['A', 'B', 'C', 'D'],
+  [
+    ['A', 'B'],
+    ['A', 'C'],
+    ['C', 'D'],
+  ],
+);
+console.log('🚀 ~ adjacencyMatrix:', adjacencyMatrix);
+const adjacencyMatrixWG = buildAdjacency_matrixWG(
+  ['A', 'B', 'C', 'D', 'E'],
+  [
+    ['A', 'B', 6],
+    ['A', 'C', 5],
+    ['C', 'D', 9],
+    ['B', 'E', 7],
+    ['B', 'D', 4],
+    ['E', 'D', 3],
+  ],
+);
+console.log('🚀 ~ adjacencyMatrix:', adjacencyMatrixWG);
