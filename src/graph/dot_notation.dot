@@ -1,0 +1,30 @@
+graph G {
+  // Layout settings
+  rankdir=LR; // Left-to-right layout for better flow
+  
+  // Nodes
+  "S" [shape=circle, color=green, style=filled]; // Start node
+  "G" [shape=circle, color=red, style=filled];   // End node
+  "A" [shape=circle];
+  "B" [shape=circle];
+  "C" [shape=circle];
+  "D" [shape=circle];
+  "E" [shape=circle];
+  "F" [shape=circle];
+  "H" [shape=circle];
+
+  // Edges with weights
+  "S" -- "A" [label="3"];
+  "S" -- "B" [label="6"];
+  "S" -- "C" [label="2"];
+  "A" -- "D" [label="3"];
+  "B" -- "E" [label="2"];
+  "B" -- "D" [label="4"];
+  "B" -- "G" [label="9"];
+  "C" -- "E" [label="1"];
+  "D" -- "F" [label="5"];
+  "E" -- "H" [label="5"];
+  "E" -- "F" [label="6"];
+  "F" -- "G" [label="5"];
+  "H" -- "G" [label="8"];
+}
