@@ -68,8 +68,20 @@ const EDGES: [string, string, number][] = [
 //   D: ['C'],
 // };
 
+// const adjacency_list: { [key: string]: string[] } = {
+//   A: ['B', 'C'],
+//   B: ['A'],
+//   C: ['A', 'D'],
+//   D: ['C'],
+// };
+
+// dic
+// dic<(x,y),weigth>
+
+// DOT // VISUAL
+
 const adjacencyList = buildAdjacencyListWG(NODES,EDGES)
-// console.log('🚀 ~ adjacencyList:', adjacencyList);
+console.log('🚀 ~ adjacencyList:', adjacencyList);
 // BFS
 function bfs(
   adjacencyList: Map<string, { node: string; weight: number }[]>,
@@ -107,6 +119,8 @@ function dfs(
   const visited: string[] = [];
   while (stack.length) {
     const [node, path, cost] = stack.pop()!;
+    console.log("🚀 ~ node:", node)
+    // if(visited.includes(node)) continue
     visited.push(node);
     const neighbors = adjacencyList.get(node)!;
     if (node === end) return [visited, path, cost];
@@ -116,7 +130,7 @@ function dfs(
     for (const next of neighbors) {
       if (
         !visited.includes(next.node) &&
-        (!stack.some(([node]) => node == next.node) || next.node == end)
+        !stack.some(([node]) => node == next.node)
       ) {
         stack.push([next.node, path + next.node, next.weight + cost]);
       }
@@ -135,24 +149,27 @@ console.log('isValiddfs:', visited2.join('') == 'SADFEHG');
 // const adjacencyMatrix = buildAdjacencyMatrixUW(NODES, EDGESUW);
 // console.log('🚀 ~ adjacencyMatrix:', adjacencyMatrix);
 
-const adjacencyMatrix = buildAdjacencyMatrixUW(
-  ['A', 'B', 'C', 'D'],
-  [
-    ['A', 'B'],
-    ['A', 'C'],
-    ['C', 'D'],
-  ],
-);
-console.log('🚀 ~ adjacencyMatrix:', adjacencyMatrix);
-const adjacencyMatrixWG = buildAdjacency_matrixWG(
-  ['A', 'B', 'C', 'D', 'E'],
-  [
-    ['A', 'B', 6],
-    ['A', 'C', 5],
-    ['C', 'D', 9],
-    ['B', 'E', 7],
-    ['B', 'D', 4],
-    ['E', 'D', 3],
-  ],
-);
-console.log('🚀 ~ adjacencyMatrix:', adjacencyMatrixWG);
+// const adjacencyMatrix = buildAdjacencyMatrixUW(
+//   ['A', 'B', 'C', 'D'],
+//   [
+//     ['A', 'B'],
+//     ['A', 'C'],
+//     ['C', 'D'],
+//   ],
+// );
+// console.log('🚀 ~ adjacencyMatrix:', adjacencyMatrix);
+// const adjacencyMatrixWG = buildAdjacency_matrixWG(
+//   ['A', 'B', 'C', 'D', 'E'],
+//   [
+//     ['A', 'B', 6],
+//     ['A', 'C', 5],
+//     ['C', 'D', 9],
+//     ['B', 'E', 7],
+//     ['B', 'D', 4],
+//     ['E', 'D', 3],
+//   ],
+// );
+// console.log('🚀 ~ adjacencyMatrix:', adjacencyMatrixWG);
+
+
+// greedy algoriths
