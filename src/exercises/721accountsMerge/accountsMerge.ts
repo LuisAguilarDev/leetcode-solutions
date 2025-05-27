@@ -55,7 +55,7 @@ export function accountMerge(accounts: string[][]): string[][] {
   const merged: string[][] = [];
   Object.keys(dict).forEach((name) => {
     dict[name].forEach((acc) => {
-      const mails = Array.from(acc).sort(compareEmails);
+      const mails = Array.from(acc).sort();
       merged.push([name, ...mails]);
     });
   });
@@ -79,29 +79,6 @@ function setUnion(set1: Set<string>, set2: Set<string>): Set<string> {
     result.add(mail);
   }
   return result;
-}
-
-function charCategory(c: string): number {
-  if (c >= '0' && c <= '9') return 0;
-  if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z')) return 2;
-  return 1;
-}
-
-function compareEmails(a: string, b: string): number {
-  const n = Math.min(a.length, b.length);
-  for (let i = 0; i < n; i++) {
-    const ca = a[i],
-      cb = b[i];
-    if (ca === cb) continue;
-
-    const catA = charCategory(ca);
-    const catB = charCategory(cb);
-    if (catA !== catB) {
-      return catA - catB;
-    }
-    return ca.localeCompare(cb);
-  }
-  return a.length - b.length;
 }
 
 export function accountMergeUnionFind(accounts: string[][]): string[][] {
@@ -136,7 +113,7 @@ export function accountMergeUnionFind(accounts: string[][]): string[][] {
   const result: string[][] = [];
   for (const root in groups) {
     const name = emailToName[root];
-    const emails = groups[root].sort(compareEmails);
+    const emails = groups[root].sort();
     result.push([name, ...emails]);
   }
 
